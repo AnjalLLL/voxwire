@@ -31,6 +31,9 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 - `/api/health` no longer exposes the SFU address. It now returns `version` and `active_calls`.
 - The FastAPI `on_event("startup")` hook is replaced by a `lifespan` handler, which removes the deprecation warning. Startup behaviour is unchanged.
 
+### Fixed
+- When the SFU is unreachable, the signaling handler no longer makes a second `EndSession` call that could only time out. The WebSocket now closes right away.
+
 ## [0.1.0] - 2026-11-06
 
 ### Added
