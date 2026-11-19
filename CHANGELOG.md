@@ -33,6 +33,7 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 
 ### Fixed
 - When the SFU is unreachable, the signaling handler no longer makes a second `EndSession` call that could only time out. The WebSocket now closes right away.
+- Phone calls: when the caller talks over the AI, Voxwire now sends Twilio a `clear` event so audio that was already buffered stops playing. The OpenAI client now reports barge-in (`input_audio_buffer.speech_started`) the same way Gemini does.
 
 ## [0.1.0] - 2026-11-06
 
