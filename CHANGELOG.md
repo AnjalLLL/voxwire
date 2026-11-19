@@ -21,6 +21,7 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 - Phone calls through Twilio Media Streams: inbound `/twilio/voice`, outbound `POST /api/call`.
 - SQLite call log, plus `GET /api/sessions` and `GET /api/usage`. Each API key only sees its own calls.
 - Dashboard (`web/dashboard.html`): usage, calls, transcripts, recordings.
+- Dashboard: filter the calls table by status (all / active / ended) and channel (all / webrtc / phone), client-side.
 - Time-limited TURN credentials (`TURN_SECRET`). Session create returns `ice_servers`.
 - Deploy profiles: `https` (Caddy), `turn` (coturn), `monitoring` (Prometheus + Grafana).
 - Browser SDK on npm: `npm i voxwire`.
@@ -30,6 +31,9 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 - **Breaking:** the signaling WebSocket now requires a session created through `POST /api/session` and its `?token=`. Random session IDs are rejected.
 - `/api/health` no longer exposes the SFU address. It now returns `version` and `active_calls`.
 - The FastAPI `on_event("startup")` hook is replaced by a `lifespan` handler, which removes the deprecation warning. Startup behaviour is unchanged.
+
+### Fixed
+- When the SFU is unreachable, the signaling handler no longer makes a second `EndSession` call that could only time out. The WebSocket now closes right away.
 
 ## [0.1.0] - 2026-11-06
 
